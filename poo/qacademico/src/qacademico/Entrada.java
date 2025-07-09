@@ -63,8 +63,13 @@ public class Entrada {
             String nome = lerLinha("Digite o nome do professor: ");
             String cpf = lerLinha("Digite o CPF do professor: ");
 
-            if (s.encontrarProf(cpf) != null) {
-                throw new IllegalArgumentException("Erro: CPF já cadastrado!");
+            if (s.cpfExistente(cpf)) {
+                throw new IllegalArgumentException("Erro: CPF já cadastrado (como aluno ou professor)!");
+            }
+            if (cpf.length() < 11) {
+                throw new CPFException("Erro: O CPF deve no mínimo 11 digítos númericos!");
+            } else if (cpf.length() > 14){
+                throw new CPFException("Erro: O CPF não deve ser maior que 14 dígitos!");
             }
 
             double salario = lerDouble("Digite o salário do professor: R$");
@@ -92,8 +97,13 @@ public class Entrada {
             String nome = lerLinha("Digite o nome do aluno: ");
             String cpf = lerLinha("Digite o CPF do aluno: ");
 
-            if (s.encontrarAlunocpf(cpf) != null) {
-                throw new IllegalArgumentException("Erro: CPF já cadastrado!");
+            if (s.cpfExistente(cpf)) {
+                throw new CPFException("Erro: CPF já cadastrado (como aluno ou professor)!");
+            }
+            if (cpf.length() < 11) {
+                throw new CPFException("Erro: O CPF deve no mínimo 11 digítos númericos!");
+            } else if (cpf.length() > 14){
+                throw new CPFException("Erro: O CPF não deve ser maior que 14 dígitos!");
             }
 
             String matricula = lerLinha("Digite a matrícula do aluno: ");
